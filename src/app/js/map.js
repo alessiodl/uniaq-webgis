@@ -3,6 +3,7 @@ import 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import sidebar from 'leaflet-sidebar-v2';
 import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css';
+import 'georaster-layer-for-leaflet';
 import 'geoblaze';
 // ChromaJS
 import chroma from 'chroma-js';
@@ -133,6 +134,46 @@ const getPunti = function(istat){
 // Legenda scala
 var colorscale = chroma.scale('YlGn').domain([0,1]);
 document.querySelector("#ndvi-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
+
+// GeoRaster Layer
+// *****************************************
+/*
+$.getJSON({
+	url:"http://192.168.1.160:5000/api/raster/ndvi",
+	data:{  
+		istatComune: $("#comuni-filter").val(),
+		anno: '2018',
+		lotto: '07'
+	},
+	success: function(response){
+		console.log(response)
+	}
+})*/
+
+var url_to_ndvi_file = "http://192.168.1.160:5000/raster_data/NDVI_069101_lotto07_2018_10cm.tif";		  
+var ndviLayer; 
+				  
+fetch(url_to_ndvi_file)
+.then(response => response.arrayBuffer())
+.then(arrayBuffer => {
+	parseGeoraster(arrayBuffer).then(georaster => {
+		ndviLayer = new GeoRasterLayer({
+			georaster,
+			pixelValuesToColorFn: function(values){
+				if (values[0] === georaster.noDataValue){
+					return 'rgba(255,255,255,0.0)';
+				} else {
+					return colorscale(values[0]).hex();
+				}
+			},
+			resolution:256
+		});
+		ndviLayer.addTo(map);
+		// map.fitBounds(ndviLayer.getBounds());
+				
+		// controlLayers.addOverlay(ndviLayer,'Lotto 7 NDVI')
+	});
+});
 
 // Sidebar
 var rightsidebar = L.control.sidebar({
