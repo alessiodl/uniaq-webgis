@@ -1,0 +1,78 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #map-container {
+    height: 100%;
+    width: 100%;
+}
+
+/* Leaflet overrides */
+/*********************/
+.leaflet-popup-content-wrapper {
+    border-radius: 2px !important;
+    font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size:14px !important;
+}
+.leaflet-popup-content-wrapper a{
+  color:#dd4814;
+  cursor:pointer;
+}
+
+.leaflet-popup-content-wrapper a:hover{
+  color:#97310e;
+}
+
+.leaflet-bar a:last-child {
+    border-bottom-left-radius: 2px !important;
+    border-bottom-right-radius: 2px !important;
+}
+
+.leaflet-bar a:first-child {
+    border-top-left-radius: 2px !important;
+    border-top-right-radius: 2px !important;
+}
+
+.leaflet-control-layers {
+  border-radius: 2px !important;
+}
+
+/* Stili customizzati Sidebar */
+/* ************************** */
+@media (min-width: 1200px) {
+    .leaflet-sidebar {
+        width: 620px;
+        max-width: 620px;
+    }
+}
+
+.leaflet-sidebar-header {
+	background-color: #C0392B !important;
+}
+
+.leaflet-sidebar-tabs {
+    padding: 0 0 0 2px !important;
+}
+
+.leaflet-sidebar-tabs > ul > li {
+    font-size:20px;
+}
+
+.leaflet-sidebar-tabs > ul > li.active {
+    background-color: #4A235A !important;
+    margin: 0 0 0 -2px;
+}
+
+.leaflet-sidebar-tabs > ul > li:hover {
+    margin: 0 0 0 -2px;
+    font-size: 22px;
+    color: #C0392B;
+}
+
+/* Stili customizzati jsPanel */
+/* ************************** */
+.jsPanel { z-index: 10001 !important; }
+.jsPanel .jsPanel-hdr { line-height: 2.1; }
+.jsPanel .jsPanel-ftr.active { padding: 6px 8px; }
+.jsPanel-depth-3 { box-shadow: none; border-radius: 2px; }
+.jsPanel-headerlogo { font-size: 20px; }

@@ -1,0 +1,40 @@
+{
+  "name": "webpack-test-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.10.2",
+    "bootstrap": "^4.3.1",
+    "bootstrap-select": "^1.13.10",
+    "chart.js": "^2.8.0",
+    "chroma-js": "^2.0.6",
+    "datatables.net": "^1.10.19",
+    "datatables.net-bs4": "^1.10.19",
+    "geoblaze": "^0.2.2",
+    "georaster-layer-for-leaflet": "^0.2.5",
+    "jquery": "^3.4.1",
+    "jspanel4": "^4.7.0",
+    "leaflet": "^1.5.1",
+    "leaflet-sidebar-v2": "^3.2.1",
+    "popper.js": "^1.15.0"
+  }
+}
