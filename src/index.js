@@ -14,7 +14,7 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 import 'bootstrap-select/dist/css/bootstrap-select.min.css';
 // Custom
 import './app/js/map';
-import { resizeMap, getComune, getPunti, getRaster } from './app/js/map';
+import { resizeMap, getComune, getPunti, getRaster, rasterLayer } from './app/js/map';
 import { global, showLoginPanel } from './app/js/auth';
 import './app/js/tables';
 import './app/css/style.css';
@@ -55,6 +55,10 @@ $("#comuni-filter, #dati-filter, #periodo-filter").change( function(){
 
 $("#add-raster-btn").click(function(){
     getRaster();
+});
+
+$("#remove-raster-btn").click(function(){
+    rasterLayer.remove();
 })
 
 

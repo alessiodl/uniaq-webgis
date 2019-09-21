@@ -133,10 +133,17 @@ const getPunti = function(istat){
 
 // Legenda scala
 var colorscale = chroma.scale('YlGn').domain([0,1]);
-// document.querySelector("#ndvi-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
+document.querySelector("#raster-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
+
+let rasterLayer;
 
 let getRaster = function(){
 	
+	if (map.hasLayer(rasterLayer)){
+		console.log("pulizia raster precedente")
+		rasterLayer.remove();
+	};
+
 	console.log("caricamento raster");
 
 	var rasterUrl = global.serverURL+"/raster_data/"+$("#raster-filter").val();
@@ -145,7 +152,7 @@ let getRaster = function(){
 	.then(arrayBuffer => {
 		parseGeoraster(arrayBuffer).then(georaster => {
 			
-			let rasterLayer = new GeoRasterLayer({
+			rasterLayer = new GeoRasterLayer({
 				georaster: georaster,
 				opacity: 0.85,
 				pixelValuesToColorFn: function(values){
@@ -159,8 +166,6 @@ let getRaster = function(){
 			});
 
 			console.log(rasterLayer.georaster);
-			
-			rasterLayer.setUrl(georaster);
 
 			rasterLayer.addTo(map);
 			// map.fitBounds(rasterLayer.getBounds());
@@ -188,7 +193,7 @@ let activateSidebarHome = function() {
     rightsidebar.open('home-tab');
 }
 
-export { resizeMap, activateSidebarHome, getComune, getPunti, punti_campionamento, getRaster };
+export { resizeMap, activateSidebarHome, getComune, getPunti, punti_campionamento, getRaster, rasterLayer };
 
 
 
