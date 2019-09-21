@@ -43,6 +43,6 @@ let getVinificazione = function(){
             }
 		}
 	})
-}
+};
 
 export { getMicrobiologici, getVinificazione }

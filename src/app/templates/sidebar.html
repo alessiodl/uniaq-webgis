@@ -13,72 +13,11 @@
         <h1 class="leaflet-sidebar-header">
             Dati Agro-ambientali
             <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
-        </h1><br/>
+        </h1>
+        <br/>
         <!-- Form ricerca dati -->
         <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <select id="comuni-filter" class="selectpicker" 
-                                    data-none-selected-text="Scegliere un Comune"
-                                    data-style="btn-warning" data-size=10 data-width="100%">
-                            </select>      
-                        </div>	
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <select id="periodo-filter" class="selectpicker" 
-                                data-style="btn-warning" data-size=10
-                                data-width="100%">
-                            <option data-icon="fas fa-calendar-alt" value="10/2016">Ottobre 2016</option>
-                            <option data-icon="fas fa-calendar-alt" value="05/2017">Maggio 2017</option>                                        
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <select id="dati-filter" class="selectpicker" 
-                                    data-style="btn-warning" data-size=10
-                                    data-width="100%">
-                                <option data-icon="fas fa-map-marked-alt" value="pt">Punti di campionamento</option>
-                                <optgroup label="Indici Microbiologici">
-                                    <option data-icon="fas fa-flask" value="biodiversita_funzionale">Biodiversità funzionale</option>
-                                    <option data-icon="fas fa-dna" value="biodiversita_genetica">Biodiversità genetica</option>
-                                </optgroup>  
-                                <optgroup label="Parametri di Vinificazione">                                  
-                                    <option data-icon="fas fa-hourglass-half" value="maturazione_tecnologica">Maturazione tecnologica</option>
-                                    <option data-icon="fas fa-wine-bottle" value="microvinificazione">Microvinificazione</option>
-                                </optgroup>
-                            </select>      
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <select id="microvin-filter" class="selectpicker" 
-                                    data-style="btn-warning" data-size=15
-                                    data-none-selected-text="Scegliere un parametro" data-width="100%">
-                                <option data-icon="fas fa-wine-glass-alt" value="ALCOOL_EFFETTIVO">Alcool effettivo (%)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ACIDITA_TOT">Acidità totale (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ACIDITA_VOL">Acidità volatile (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ACIDO_MALICO">Acido Malico (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ACIDO_LATTICO">Acido Lattico (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ACIDO_TARTARICO">Acido tartarico (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ESTRATTORE_SECCO_RIDUTTORE">Estrattore secco riduttore (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="POLIFENOLI">Polifenoli (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="ZUCCHERI_SECCHI">Zuccheri secchi (g/L)</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="DENSITA">Densità</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="PH">Ph</option>
-                                <option data-icon="fas fa-wine-glass-alt" value="INTENSITA_COLORANTE">Intensità colorante</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            ${ require('./sidebar-data-form.html') }
         </div>
         <!-- Tabella -->
         <div class="row">
@@ -99,9 +38,11 @@
             Dati raster
             <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
         </h1>
-        <p><div id="ndvi-legend" style="width:100%; height:20px;"></div></p>
-        <p><input type="range" min=0 max=1 step=0.1 id="ndvi-slider" style="width:100%; height:20px;"></input></p>
-        <p><input type="text" id="raster-value" readonly></input></p>
+        </br>
+        <!-- Form Raster -->
+        <div class="row">
+            ${ require('./sidebar-raster-form.html') }
+        </div>
     </div>
 
     <div class="leaflet-sidebar-pane" id="layers-tab">

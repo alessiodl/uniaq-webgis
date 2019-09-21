@@ -133,47 +133,44 @@ const getPunti = function(istat){
 
 // Legenda scala
 var colorscale = chroma.scale('YlGn').domain([0,1]);
-document.querySelector("#ndvi-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
+// document.querySelector("#ndvi-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
 
-// GeoRaster Layer
-// *****************************************
-/*
-$.getJSON({
-	url:"http://192.168.1.160:5000/api/raster/ndvi",
-	data:{  
-		istatComune: $("#comuni-filter").val(),
-		anno: '2018',
-		lotto: '07'
-	},
-	success: function(response){
-		console.log(response)
-	}
-})*/
+let getRaster = function(){
+	
+	console.log("caricamento raster");
 
-var url_to_ndvi_file = "http://192.168.1.160:5000/raster_data/NDVI_069101_lotto07_2018_10cm.tif";		  
-var ndviLayer; 
-				  
-fetch(url_to_ndvi_file)
-.then(response => response.arrayBuffer())
-.then(arrayBuffer => {
-	parseGeoraster(arrayBuffer).then(georaster => {
-		ndviLayer = new GeoRasterLayer({
-			georaster,
-			pixelValuesToColorFn: function(values){
-				if (values[0] === georaster.noDataValue){
-					return 'rgba(255,255,255,0.0)';
-				} else {
-					return colorscale(values[0]).hex();
-				}
-			},
-			resolution:256
+	var rasterUrl = global.serverURL+"/raster_data/"+$("#raster-filter").val();
+	fetch(rasterUrl)
+	.then(response => response.arrayBuffer())
+	.then(arrayBuffer => {
+		parseGeoraster(arrayBuffer).then(georaster => {
+			
+			let rasterLayer = new GeoRasterLayer({
+				georaster: georaster,
+				opacity: 0.85,
+				pixelValuesToColorFn: function(values){
+					if (values[0] === georaster.noDataValue){
+						return 'rgba(255,255,255,0.0)';
+					} else {
+						return colorscale(values[0]).hex();
+					}
+				},
+				resolution:256
+			});
+
+			console.log(rasterLayer.georaster);
+			
+			rasterLayer.setUrl(georaster);
+
+			rasterLayer.addTo(map);
+			// map.fitBounds(rasterLayer.getBounds());
+			console.log("raster caricato");
+			
+			console.log("raster ricaricato");
+
 		});
-		ndviLayer.addTo(map);
-		// map.fitBounds(ndviLayer.getBounds());
-				
-		// controlLayers.addOverlay(ndviLayer,'Lotto 7 NDVI')
 	});
-});
+};
 
 // Sidebar
 var rightsidebar = L.control.sidebar({
@@ -191,7 +188,7 @@ let activateSidebarHome = function() {
     rightsidebar.open('home-tab');
 }
 
-export { resizeMap, activateSidebarHome, getComune, getPunti, punti_campionamento };
+export { resizeMap, activateSidebarHome, getComune, getPunti, punti_campionamento, getRaster };
 
 
 

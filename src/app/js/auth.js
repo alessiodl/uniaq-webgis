@@ -68,6 +68,26 @@ function showLoginPanel() {
     });
 };
 
+
+let getListRaster = function(cod_istat){
+	// Recupera dati dal server
+    $.ajax({
+		url:global.serverURL+"/api/raster/list",
+		data:{ 
+			istatComune: cod_istat
+		},
+		success: function(resp){
+            var options = "";
+			$.each(resp.raster_data,function(i,val){
+				options += "<option data-icon='fas fa-layer-group' value='"+val.filename+"'>"+val.alias+"</option>"
+            });
+            // Appende le opzioni
+            $("#raster-filter").empty().append(options);
+            $("#raster-filter").selectpicker('refresh');
+		}
+	})
+};
+
 let getListComuni = function(){
 	$.getJSON({
 		url:global.serverURL+"/api/comuni", 
@@ -89,7 +109,7 @@ let getListComuni = function(){
             // 
             getComune('069101');
             getPunti('069101');
-            
+            getListRaster('069101');
 		}
 	});
 };
