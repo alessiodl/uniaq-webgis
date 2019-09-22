@@ -78,7 +78,7 @@ let getListRaster = function(cod_istat){
 		success: function(resp){
             var options = "";
 			$.each(resp.raster_data,function(i,val){
-				options += "<option data-icon='fas fa-layer-group' value='"+val.filename+"'>"+val.alias+"</option>"
+				options += "<option data-icon='far fa-map' value='"+val.filename+"'>"+val.alias+"</option>"
             });
             // Appende le opzioni
             $("#raster-filter").empty().append(options);

@@ -144,7 +144,7 @@ let getRaster = function(){
 	if (selectedRaster.includes('NDVI')){
 		colorscale = chroma.scale('YlGn').domain([-1,1]);
 	} else if (selectedRaster.includes('DEM')){
-		colorscale = chroma.scale('BrBg').domain([155.378,334.486]);
+		colorscale = chroma.scale(['#5C7E26','#94C06E','#C0AC6E','#96685E']).domain([155.378,334.486]);
 	} else if (selectedRaster.includes('PENDENZA')){
 		colorscale = chroma.scale('RdGy').domain([1.599969,57.068]);
 	} else if (selectedRaster.includes('ESPOSIZIONE')){
@@ -171,18 +171,12 @@ let getRaster = function(){
 			map.fitBounds(rasterLayer.getBounds());
 			$("#raster-msg").html("<i class='fas fa-info-circle'></i> Analizzare il raster con gli strumenti a disposizione");
 			document.querySelector("#raster-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
-			$("#raster-slider").val(0.9)
+			$("#raster-px-value").html('<span class="text-muted" style="font-size:16px;">Clicca sul raster ...</span>');
+			$("#raster-slider").val(0.9);
+			$("#raster-slider").attr('disabled',false);
 		});
 	});
 };
-
-map.on('click', function(e){
-	// console.log(e.latlng.lat,e.latlng.lng);
-	let lat = e.latlng.lat;
-	let lng = e.latlng.lng;
-	let pixel_value = geoblaze.identify(rasterLayer.georaster,[lng,lat]);
-	console.log(pixel_value);
-});
 
 // Sidebar
 var rightsidebar = L.control.sidebar({
@@ -200,7 +194,7 @@ let activateSidebarHome = function() {
     rightsidebar.open('home-tab');
 }
 
-export { resizeMap, activateSidebarHome, getComune, getPunti, punti_campionamento, getRaster, rasterLayer };
+export { resizeMap, activateSidebarHome, map, getComune, getPunti, punti_campionamento, getRaster, rasterLayer };
 
 
 

@@ -13,8 +13,9 @@ import 'bootstrap-select';
 $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 import 'bootstrap-select/dist/css/bootstrap-select.min.css';
 // Custom
-import './app/js/map';
-import { resizeMap, getComune, getPunti, getRaster, rasterLayer } from './app/js/map';
+// import './app/js/map';
+import { map, resizeMap, getComune, getPunti } from './app/js/map';
+import './app/js/analysis';
 import { global, showLoginPanel } from './app/js/auth';
 import './app/js/tables';
 import './app/css/style.css';
@@ -31,11 +32,6 @@ $(window).on('load',function() {
     resizeMap();
     $("#microvin-filter").selectpicker('hide');
 });
-/*
-document.addEventListener('DOMContentLoaded', (event) => {
-    resizeMap();
-    $("#microvin-filter").selectpicker('hide');
-});*/
 
 $("#comuni-filter, #dati-filter, #periodo-filter").change( function(){
     var istat = $("#comuni-filter").val();
@@ -59,21 +55,6 @@ $("#comuni-filter, #dati-filter, #periodo-filter").change( function(){
         }
         getVinificazione();
     }
-
-});
-
-$("#add-raster-btn").click(function(){
-    getRaster();
-});
-
-$("#remove-raster-btn").click(function(){
-    $("#raster-msg").html("<i class='fas fa-lightbulb'></i> Scegliere un raster dall'elenco e aggiungerlo alla mappa");
-    document.querySelector("#raster-legend").style.backgroundImage = "none";
-    rasterLayer.remove();
-});
-
-$("#raster-slider").change(function(){
-    rasterLayer.setOpacity($(this).val());
 });
 
 
