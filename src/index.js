@@ -22,11 +22,20 @@ import { getMicrobiologici, getVinificazione } from './app/js/dati';
 import { draw_puntiTable } from './app/js/tables';
 import { draw_puntiChart } from './app/js/charts';
 
-document.addEventListener('DOMContentLoaded', (event) => {
+$(window).on('load',function() {
+	// Animate loader off screen
+	setTimeout(function(){
+		$(".se-pre-con").fadeOut("slow");
+		showLoginPanel();
+    },2500);
     resizeMap();
-    showLoginPanel();
     $("#microvin-filter").selectpicker('hide');
 });
+/*
+document.addEventListener('DOMContentLoaded', (event) => {
+    resizeMap();
+    $("#microvin-filter").selectpicker('hide');
+});*/
 
 $("#comuni-filter, #dati-filter, #periodo-filter").change( function(){
     var istat = $("#comuni-filter").val();
@@ -58,8 +67,14 @@ $("#add-raster-btn").click(function(){
 });
 
 $("#remove-raster-btn").click(function(){
+    $("#raster-msg").html("<i class='fas fa-lightbulb'></i> Scegliere un raster dall'elenco e aggiungerlo alla mappa");
+    document.querySelector("#raster-legend").style.backgroundImage = "none";
     rasterLayer.remove();
-})
+});
+
+$("#raster-slider").change(function(){
+    rasterLayer.setOpacity($(this).val());
+});
 
 
 

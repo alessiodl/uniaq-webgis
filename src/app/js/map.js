@@ -14,10 +14,6 @@ import { draw_puntiTable, adjustTable } from './tables';
 // initalize leaflet map
 const map = L.map('map-container').setView([42, 14], 6);
 
-map.on('click', function(e){
-    console.log(e.latlng.lat,e.latlng.lng);
-});
-
 // Renderer
 const myRenderer = L.canvas({ padding: 0.5 });
 // Crate panel to put CartoDB labels on top basemaps
@@ -132,29 +128,36 @@ const getPunti = function(istat){
 }
 
 // Legenda scala
-var colorscale = chroma.scale('YlGn').domain([0,1]);
-document.querySelector("#raster-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
-
 let rasterLayer;
-
 let getRaster = function(){
 	
-	if (map.hasLayer(rasterLayer)){
-		console.log("pulizia raster precedente")
-		rasterLayer.remove();
-	};
+	if (map.hasLayer(rasterLayer)){ rasterLayer.remove(); };
 
-	console.log("caricamento raster");
+	$("#raster-msg").html(
+		"<i class='fas fa-cog fa-spin'></i> Caricamento dati raster in corso..."
+	);
+	var selectedRaster = $("#raster-filter").val();
+	var rasterUrl = global.serverURL+"/raster_data/"+selectedRaster;
+	
+	let colorscale;
 
-	var rasterUrl = global.serverURL+"/raster_data/"+$("#raster-filter").val();
+	if (selectedRaster.includes('NDVI')){
+		colorscale = chroma.scale('YlGn').domain([-1,1]);
+	} else if (selectedRaster.includes('DEM')){
+		colorscale = chroma.scale('BrBg').domain([155.378,334.486]);
+	} else if (selectedRaster.includes('PENDENZA')){
+		colorscale = chroma.scale('RdGy').domain([1.599969,57.068]);
+	} else if (selectedRaster.includes('ESPOSIZIONE')){
+		colorscale = chroma.scale('RdYlGn').domain([7.20119,352.786]);
+	}
+
 	fetch(rasterUrl)
 	.then(response => response.arrayBuffer())
 	.then(arrayBuffer => {
 		parseGeoraster(arrayBuffer).then(georaster => {
-			
 			rasterLayer = new GeoRasterLayer({
 				georaster: georaster,
-				opacity: 0.85,
+				opacity: 0.9,
 				pixelValuesToColorFn: function(values){
 					if (values[0] === georaster.noDataValue){
 						return 'rgba(255,255,255,0.0)';
@@ -164,18 +167,22 @@ let getRaster = function(){
 				},
 				resolution:256
 			});
-
-			console.log(rasterLayer.georaster);
-
 			rasterLayer.addTo(map);
-			// map.fitBounds(rasterLayer.getBounds());
-			console.log("raster caricato");
-			
-			console.log("raster ricaricato");
-
+			map.fitBounds(rasterLayer.getBounds());
+			$("#raster-msg").html("<i class='fas fa-info-circle'></i> Analizzare il raster con gli strumenti a disposizione");
+			document.querySelector("#raster-legend").style.backgroundImage = "linear-gradient(to right," +colorscale.colors().toString()+ ")";
+			$("#raster-slider").val(0.9)
 		});
 	});
 };
+
+map.on('click', function(e){
+	// console.log(e.latlng.lat,e.latlng.lng);
+	let lat = e.latlng.lat;
+	let lng = e.latlng.lng;
+	let pixel_value = geoblaze.identify(rasterLayer.georaster,[lng,lat]);
+	console.log(pixel_value);
+});
 
 // Sidebar
 var rightsidebar = L.control.sidebar({

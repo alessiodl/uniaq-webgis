@@ -68,7 +68,6 @@ function showLoginPanel() {
     });
 };
 
-
 let getListRaster = function(cod_istat){
 	// Recupera dati dal server
     $.ajax({

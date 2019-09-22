@@ -7,6 +7,7 @@
         <title>WebGIS | DISIM </title>
     </head>
     <body>
+        <div class="se-pre-con"></div>
         <div id="sidebar" class="leaflet-sidebar collapsed">
             <!-- nav tabs -->
 <div class="leaflet-sidebar-tabs">
@@ -117,6 +118,13 @@
             <div class="col-md-12">
     <div class="form-group">
         <div class="col-md-12">
+            <p class="alert alert-warning" id="raster-msg" style="font-size:16px;">
+                <i class="fas fa-lightbulb"></i> Scegliere un raster dall'elenco e aggiungerlo alla mappa
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
             <div class="input-group">
                 <select id="raster-filter" class="selectpicker" 
                         data-none-selected-text="Scegliere un Raster"
@@ -143,10 +151,20 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <p><div id="raster-legend" style="width:100%; height:30px;"></div></p>
-                <p><input type="range" min=0 max=1 step=0.1 id="ndvi-slider" style="width:100%; height:20px;"></input></p>
-                <p><input class="form-control" type="text" id="raster-value" readonly></input></p>
+                <div class="form-group">
+                        
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div id="raster-legend" style="width:100%; height:30px;"></div>
+                        <input type="range" min=0 max=1 step=0.1 id="raster-slider" style="width:100%; height:20px;"></input>
+                        <input class="form-control" type="text" id="raster-value" readonly></input>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">    </div>
         </div>
     </div>
 
@@ -160,5 +178,5 @@
 </div>     
         </div>
         <div id="map-container"></div>
-    <script type="text/javascript" src="vendors~main.a949cc923695df44587d.js"></script><script type="text/javascript" src="main.ac7aebb08f37e16f2f42.js"></script></body>
+    <script type="text/javascript" src="vendors~main.6213fff28ff7935e3381.js"></script><script type="text/javascript" src="main.f7351c289554d81a9535.js"></script></body>
 </html>
