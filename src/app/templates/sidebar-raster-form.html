@@ -67,14 +67,28 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn btn-secondary btn-block">
+                                <button id="draw-polygon-btn" class="btn btn-secondary btn-block">
                                     <i class="fas fa-draw-polygon"></i> Disegnare AOI
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-secondary btn-block">
+                                <button id="clear-polygon-btn" class="btn btn-secondary btn-block">
                                     <i class="fas fa-eraser"></i> Cancellare AOI
                                 </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="alert alert-secondary" style="margin-top: 25px; font-size: 14px;">
+                                    Valore massimo: <strong><span id="raster-stats-max">...</span></strong><br/>
+                                    Valore minimo: <strong><span id="raster-stats-min">...</span></strong><br/>
+                                    Valore medio: <strong><span id="raster-stats-means">...</span></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <canvas id="raster-chart"></canvas>
                             </div>
                         </div>
                     </div>

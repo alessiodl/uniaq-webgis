@@ -5,6 +5,8 @@ import sidebar from 'leaflet-sidebar-v2';
 import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css';
 import 'georaster-layer-for-leaflet';
 import 'geoblaze';
+import 'leaflet-draw';
+
 // ChromaJS
 import chroma from 'chroma-js';
 import { global } from './auth';
@@ -13,6 +15,10 @@ import { draw_puntiTable, adjustTable } from './tables';
 
 // initalize leaflet map
 const map = L.map('map-container').setView([42, 14], 6);
+
+// Controllo per il disegno di una AOI rettangolare
+const polygonDrawer = new L.Draw.Rectangle(map);
+const selectionLayer = L.geoJSON().addTo(map);
 
 // Renderer
 const myRenderer = L.canvas({ padding: 0.5 });
@@ -194,7 +200,10 @@ let activateSidebarHome = function() {
     rightsidebar.open('home-tab');
 }
 
-export { resizeMap, activateSidebarHome, map, getComune, getPunti, punti_campionamento, getRaster, rasterLayer };
+export { resizeMap, activateSidebarHome, 
+	map, getComune, getPunti, punti_campionamento, getRaster, rasterLayer, 
+	polygonDrawer, selectionLayer 
+};
 
 
 

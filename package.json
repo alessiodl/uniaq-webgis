@@ -34,6 +34,7 @@
     "jquery": "^3.4.1",
     "jspanel4": "^4.7.0",
     "leaflet": "^1.5.1",
+    "leaflet-draw": "^1.0.4",
     "leaflet-sidebar-v2": "^3.2.1",
     "popper.js": "^1.15.0"
   }

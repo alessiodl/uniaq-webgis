@@ -183,14 +183,28 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn btn-secondary btn-block">
+                                <button id="draw-polygon-btn" class="btn btn-secondary btn-block">
                                     <i class="fas fa-draw-polygon"></i> Disegnare AOI
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-secondary btn-block">
+                                <button id="clear-polygon-btn" class="btn btn-secondary btn-block">
                                     <i class="fas fa-eraser"></i> Cancellare AOI
                                 </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="alert alert-secondary" style="margin-top: 25px; font-size: 14px;">
+                                    Valore massimo: <strong><span id="raster-stats-max">...</span></strong><br/>
+                                    Valore minimo: <strong><span id="raster-stats-min">...</span></strong><br/>
+                                    Valore medio: <strong><span id="raster-stats-means">...</span></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <canvas id="raster-chart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -211,5 +225,5 @@
 </div>     
         </div>
         <div id="map-container"></div>
-    <script type="text/javascript" src="vendors~main.6213fff28ff7935e3381.js"></script><script type="text/javascript" src="main.c3d2cf7e10ee8dea939b.js"></script></body>
+    <script type="text/javascript" src="vendors~main.a95301a830e9492e7d96.js"></script><script type="text/javascript" src="main.f4261cee6725c701aa5d.js"></script></body>
 </html>
