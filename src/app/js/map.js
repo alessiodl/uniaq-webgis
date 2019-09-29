@@ -17,8 +17,14 @@ import { draw_puntiTable, adjustTable } from './tables';
 const map = L.map('map-container').setView([42, 14], 6);
 
 // Controllo per il disegno di una AOI rettangolare
-const polygonDrawer = new L.Draw.Rectangle(map);
-const selectionLayer = L.geoJSON().addTo(map);
+const polygonDrawer = new L.Draw.Polygon(map);
+const selectionLayer = L.geoJSON(null,{
+	style: {
+		"color": "#ff7800",
+		"weight": 5,
+		"opacity": 0.65
+	}
+}).addTo(map);
 
 // Renderer
 const myRenderer = L.canvas({ padding: 0.5 });

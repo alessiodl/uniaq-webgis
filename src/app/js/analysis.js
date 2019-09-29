@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import { map, rasterLayer, getRaster, polygonDrawer, selectionLayer } from './map';
 
+let drawerEnabled = false;
+
 $("#add-raster-btn").click(function(){
     getRaster();
 });
@@ -21,7 +23,7 @@ map.on('click', function(e){
 	// console.log(e.latlng.lat,e.latlng.lng);
 	let lat = e.latlng.lat;
 	let lng = e.latlng.lng;
-    if (map.hasLayer(rasterLayer)){
+    if (map.hasLayer(rasterLayer) && drawerEnabled == false){
         let pixel_value = geoblaze.identify(rasterLayer.georaster,[lng,lat]);
         $("#raster-px-value").html(parseFloat(pixel_value).toFixed(3));
     } else {
@@ -30,6 +32,7 @@ map.on('click', function(e){
 });
 
 $("#draw-polygon-btn").click(function(){
+    drawerEnabled = true;
     polygonDrawer.enable();
 });
 
@@ -51,30 +54,33 @@ map.on('draw:created', function (e) {
     setTimeout(function(){
         rasterLayerAnalysis(geom);
     }, 500);
+
+    drawerEnabled = false;
 });
 
 const rasterLayerAnalysis = function(geom){
     let means = geoblaze.mean(rasterLayer.georaster, geom);
     let min = geoblaze.min(rasterLayer.georaster, geom);
     let max = geoblaze.max(rasterLayer.georaster, geom);
+    let mode = geoblaze.mode(rasterLayer.georaster, geom);
+    let median = geoblaze.median(rasterLayer.georaster, geom);
     const histogramOptions = {
         scaleType: 'ratio',
         numClasses: 12,
         classType: 'equal-interval'
     };
     let histogram = geoblaze.histogram(rasterLayer.georaster, geom, histogramOptions);
-    console.log(histogram)
-
+    // console.log(histogram)
     let histogramLabels = Object.keys(histogram[0]);
     let histogramValues = Object.values(histogram[0]);
-
+    // Grafico
     draw_rasterChart(histogramLabels,histogramValues);
-    // console.log(max)
-    // console.log(min)
-    // console.log(means)
-    $("#raster-stats-max").html(max[0]);
-    $("#raster-stats-min").html(min[0]);
-    $("#raster-stats-means").html(means[0]);
+    // Statistiche
+    $("#raster-stats-max").html( max[0].toFixed(3) );
+    $("#raster-stats-min").html( min[0].toFixed(3) );
+    $("#raster-stats-means").html( means[0].toFixed(3) );
+    $("#raster-stats-mode").html( mode[0].toFixed(3) );
+    $("#raster-stats-median").html( median[0].toFixed(3) );
 };
 
 let rasterChart;
@@ -95,7 +101,8 @@ const draw_rasterChart = function(labels,data){
 			}],
 		},
 		options: {
-			responsive:true
+            responsive:true,
+            legend:false
 		}
 	});
 };
@@ -107,6 +114,8 @@ $("#clear-polygon-btn").click(function(){
     $("#raster-stats-max").html("...");
     $("#raster-stats-min").html("...");
     $("#raster-stats-means").html("...");
+    $("#raster-stats-mode").html("...");
+    $("#raster-stats-median").html("...");
     // Cancella grafico
     if (rasterChart) { rasterChart.destroy(); }
 });

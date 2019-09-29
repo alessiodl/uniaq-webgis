@@ -14,8 +14,7 @@
     <!-- top aligned tabs -->
     <ul role="tablist">
         <li><a href="#home-tab" role="tab" title="Dati Agro-ambientali"><i class="fas fa-bars active"></i></a></li>
-        <li><a href="#georaster-tab" title="Dati raster" role="tab"><i class="fas fa-map-marked-alt"></i></a></li>
-        <li><a href="#layers-tab" title="Gestione layer" role="tab"><i class="fas fa-layer-group"></i></a></li>
+        <li><a href="#georaster-tab" title="Dati raster" role="tab"><i class="fas fa-map"></i></a></li>
     </ul>
 </div>
 <!-- panel content -->
@@ -195,10 +194,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="alert alert-secondary" style="margin-top: 25px; font-size: 14px;">
+                                <p class="alert alert-warning" style="margin-top: 15px;">
                                     Valore massimo: <strong><span id="raster-stats-max">...</span></strong><br/>
                                     Valore minimo: <strong><span id="raster-stats-min">...</span></strong><br/>
-                                    Valore medio: <strong><span id="raster-stats-means">...</span></strong>
+                                    Valore medio: <strong><span id="raster-stats-means">...</span></strong><br/>
+                                    Moda: <strong><span id="raster-stats-mode">...</span></strong><br/>
+                                    Mediana: <strong><span id="raster-stats-median">...</span></strong>
                                 </p>
                             </div>
                         </div>
@@ -214,16 +215,8 @@
     </div>
 </div>
     </div>
-
-    <div class="leaflet-sidebar-pane" id="layers-tab">
-        <h1 class="leaflet-sidebar-header">
-            Layers
-            <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
-        </h1>
-    </div>
-</div>   
-</div>     
+</div>
         </div>
         <div id="map-container"></div>
-    <script type="text/javascript" src="vendors~main.a95301a830e9492e7d96.js"></script><script type="text/javascript" src="main.f4261cee6725c701aa5d.js"></script></body>
+    <script type="text/javascript" src="vendors~main.a95301a830e9492e7d96.js"></script><script type="text/javascript" src="main.7614ac4e9440ec7b64d4.js"></script></body>
 </html>
