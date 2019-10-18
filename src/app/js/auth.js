@@ -7,7 +7,7 @@ import { activateSidebarHome, getComune, getPunti } from './map';
 var global = {
     // Python GeoAPI development host
     // serverURL: "http://192.168.1.160:5000",
-    serverURL: "http://alessiodl.pythonanywhere.com",
+    serverURL: "https://alessiodl.pythonanywhere.com",
 	development: true
 };
 
