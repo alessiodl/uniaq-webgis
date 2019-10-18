@@ -67,25 +67,45 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <button id="draw-polygon-btn" class="btn btn-secondary btn-block">
-                                    <i class="fas fa-draw-polygon"></i> Disegnare AOI
+                                <button id="draw-polygon-btn" class="btn btn-sm btn-secondary btn-block">
+                                    <i class="fas fa-draw-polygon"></i> Disegna AOI
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <button id="clear-polygon-btn" class="btn btn-secondary btn-block">
-                                    <i class="fas fa-eraser"></i> Cancellare AOI
+                                <button id="clear-polygon-btn" class="btn btn-sm btn-secondary btn-block">
+                                    <i class="fas fa-eraser"></i> Cancella AOI
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-md-12">
+                                <button id="run-analysis-btn" class="btn btn-danger btn-block" disabled>
+                                    <i class="fas fa-calculator"></i> Calcola valori
                                 </button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="alert alert-warning" style="margin-top: 15px;">
-                                    Valore massimo: <strong><span id="raster-stats-max">...</span></strong><br/>
-                                    Valore minimo: <strong><span id="raster-stats-min">...</span></strong><br/>
-                                    Valore medio: <strong><span id="raster-stats-means">...</span></strong><br/>
-                                    Moda: <strong><span id="raster-stats-mode">...</span></strong><br/>
-                                    Mediana: <strong><span id="raster-stats-median">...</span></strong>
-                                </p>
+                                <table class="table table-condesed table-striped" style="margin-top: 15px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Max</th>
+                                            <th>Min</th>
+                                            <th>Media</th>
+                                            <!-- <th>Moda</th>
+                                            <th>Mediana</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span id="raster-stats-max">...</span></td>
+                                            <td><span id="raster-stats-min">...</span></td>
+                                            <td><span id="raster-stats-means">...</span></td>
+                                            <!-- <td><span id="raster-stats-mode">...</span></td>
+                                            <td><span id="raster-stats-median">...</span></td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="row">
