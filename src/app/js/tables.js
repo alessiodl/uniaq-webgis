@@ -31,7 +31,7 @@ const draw_puntiTable = function(){
 		},
 		columns: [
 			{ title: "Punto"},
-		    { title: "Elevazione" },
+		    { title: "Elevazione (m)" },
 		    { title: "Latitudine", sortable:false },
 		    { title: "Longitudine", sortable:false },
 		    { title: "Comune" },
@@ -214,4 +214,4 @@ const adjustTable = function (layer) {
 	// tableObj.page(page).draw(false);
 };
 
-export { draw_puntiTable, draw_bioFunzTable, draw_bioGenTable, draw_matTecTable, draw_microvinTable };
+export { draw_puntiTable, draw_bioFunzTable, draw_bioGenTable, draw_matTecTable, draw_microvinTable, adjustTable };

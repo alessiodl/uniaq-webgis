@@ -6,7 +6,8 @@ import { activateSidebarHome, getComune, getPunti } from './map';
 
 var global = {
     // Python GeoAPI development host
-	serverURL: "http://192.168.1.160:5000",
+    // serverURL: "http://192.168.1.160:5000",
+    serverURL: "http://alessiodl.pythonanywhere.com",
 	development: true
 };
 
@@ -38,7 +39,7 @@ function showLoginPanel() {
             document.querySelector("#login-btn").addEventListener("click", function(){
                 // Recupera Token dal Server
                 $.get({
-                    url: "http://192.168.1.160:5000/api/login",
+                    url: global.serverURL+"/api/login",
                     data:{
                         username: $("#username").val(),
                         password: $("#password").val()
@@ -96,7 +97,7 @@ let getListComuni = function(){
 			var options = "";
 			$.each(resp.features,function(i,val){
 				options += "<option data-icon='fas fa-city' value='"+val.properties.cod_istat+"'>"+val.properties.nome+"</option>"
-			})
+            });
 			// Appende le opzioni
 			$("#comuni-filter").append(options);
 			// Seleziona Villamagna come predefinito
@@ -107,8 +108,11 @@ let getListComuni = function(){
             $("#comuni-filter").selectpicker('refresh');
             // 
             getComune('069101');
-            getPunti('069101');
-            getListRaster('069101');
+            setTimeout(function(){
+                getPunti('069101');
+                getListRaster('069101');
+            },500)
+           
 		}
 	});
 };

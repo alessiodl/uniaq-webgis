@@ -65,7 +65,7 @@ const getComune = function(istat){
 		url:global.serverURL+"/api/comuni",
 		data:{ token: global.token, istatComune: istat },
 		success: function(response){
-            console.log(response);
+            // console.log(response);
 			// Popola il layer
 			comune.addData(response);
 			// Va all'estensione del layer
@@ -203,7 +203,11 @@ let resizeMap = function(){
 }
 
 let activateSidebarHome = function() {
-    rightsidebar.open('home-tab');
+	rightsidebar.open('home-tab');
+	setTimeout(function(){
+		adjustTable('data');
+		
+	},750);
 }
 
 export { resizeMap, activateSidebarHome, 
