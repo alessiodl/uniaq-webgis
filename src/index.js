@@ -19,7 +19,7 @@ import './app/js/analysis';
 import { global, showLoginPanel } from './app/js/auth';
 import './app/js/tables';
 import './app/css/style.css';
-import { getMicrobiologici, getVinificazione } from './app/js/dati';
+import { getMicrobiologici, getVinificazione, getMeteoData } from './app/js/dati';
 import { draw_puntiTable } from './app/js/tables';
 import { draw_puntiChart } from './app/js/charts';
 
@@ -55,6 +55,10 @@ $("#comuni-filter, #dati-filter, #periodo-filter").change( function(){
         }
         getVinificazione();
     }
+});
+
+$("#stazione-filter,#meteo-data-filter").change(function(){
+    getMeteoData();
 });
 
 

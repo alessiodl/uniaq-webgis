@@ -42,7 +42,21 @@ let getVinificazione = function(){
 				draw_microvinChart(response);
             }
 		}
-	})
+	});
 };
 
-export { getMicrobiologici, getVinificazione }
+let getMeteoData = function(){
+	// Recupera dati dal server
+    $.ajax({
+		url:global.serverURL+"/api/dati/meteo",
+		data:{ 
+			token: global.token, 
+			idStazione: $("#stazione-filter").val()
+		},
+		success: function(response){
+			console.log(response);
+		}
+	})
+}
+
+export { getMicrobiologici, getVinificazione, getMeteoData }

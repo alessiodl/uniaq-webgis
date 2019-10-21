@@ -3,6 +3,7 @@
     <!-- top aligned tabs -->
     <ul role="tablist">
         <li><a href="#home-tab" role="tab" title="Dati Agro-ambientali"><i class="fas fa-bars active"></i></a></li>
+        <li><a href="#meteo-tab" role="tab" title="Dati Meteo"><i class="fas fa-cloud-sun-rain"></i></a></li>
         <li><a href="#georaster-tab" title="Dati raster" role="tab"><i class="fas fa-map"></i></a></li>
         <li><a href="#appinfo-tab" title="Informazioni" role="tab"><i class="fas fa-info-circle"></i></a></li>
     </ul>
@@ -31,6 +32,16 @@
                 <canvas id="data-chart"></canvas>
             </div>
         </div>
+    </div>
+
+    <div class="leaflet-sidebar-pane" id="meteo-tab">
+        <h1 class="leaflet-sidebar-header">
+            Dati Meteo
+            <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+        </h1>
+        </br>
+        <!-- Form Raster -->
+        ${ require('./sidebar-meteo-form.html') }
     </div>
 
     <div class="leaflet-sidebar-pane" id="georaster-tab">

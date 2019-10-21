@@ -22,9 +22,6 @@ html, body, #map-container {
 
 /* Leaflet overrides */
 /*********************/
-.leaflet-popup-tip-container {
-    display: none;
-} 
 
 .leaflet-popup-content-wrapper {
     border-radius: 2px !important;

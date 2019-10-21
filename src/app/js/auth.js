@@ -2,7 +2,7 @@
 import { jsPanel } from 'jspanel4/es6module/jspanel.js';
 import 'jspanel4/es6module/extensions/modal/jspanel.modal.js';
 import 'jspanel4/dist/jspanel.css'
-import { activateSidebarHome, getComune, getPunti } from './map';
+import { activateSidebarHome, getComune, getPunti, getStazMeteo } from './map';
 import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
 
 var global = {
@@ -135,9 +135,10 @@ let getListComuni = function(){
             // 
             getComune('069101');
             setTimeout(function(){
+                getStazMeteo();
                 getPunti('069101');
                 getListRaster('069101');
-            },500)
+            },500);
            
 		}
 	});

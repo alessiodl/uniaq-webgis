@@ -103,15 +103,9 @@ const punti_campionamento = L.geoJSON(null,{
 		var attributes = layer.feature.properties;
 		layer.bindTooltip(String("P"+layer.feature.properties.id),{permanent:true, direction:"top"}).openTooltip();
 		layer.bindPopup(
-			"<table class='table table-sm'>"+
-				"<thead>"+
-					"<tr><th><span class='list-element-title'>Punto di campionamento "+attributes["id"]+"</span></th></tr>"+
-				"</thead>"+
-				"<tbody>"+
-					"<tr><td>Comune: "+attributes["comune"]+" ("+attributes["cod_istat"]+")</td></tr>"+
-					"<tr><td>Altezza SLM: "+attributes["elevazione"]+" metri</td></tr>"+
-				"</tbody>"+
-			"</table>"
+			"Punto di campionamento: <strong>P"+attributes["id"]+"</strong><br/>"+
+			"Comune: "+attributes["comune"]+" ("+attributes["cod_istat"]+")</br>"+
+			"Altezza SLM: "+attributes["elevazione"]+" metri"
 		);
 		layer.on({
 			mouseover:function(e){
@@ -150,6 +144,59 @@ const getPunti = function(istat){
 		}
 	});
 }
+
+
+// Stazioni Meteo
+const staz_meteo = L.geoJSON(null,{
+	pane:'punti',
+	pointToLayer: function (feature, latlng) {
+		return L.circleMarker(latlng,{
+			renderer: myRenderer,
+			radius: 6,
+			fillColor: "#0000CC",
+			fillOpacity: 0.85,
+			color: "#FFF",
+			weight: 1,
+			opacity: 1
+		})
+	},
+	onEachFeature: function (feature,layer){
+		var attributes = layer.feature.properties;
+		layer.bindPopup(
+			"Stazione meteo: <strong>"+attributes["nome"]+"</strong><br/>"+
+			"Altezza SLM: "+attributes["altitudine"]
+		);
+		layer.on({
+			mouseover:function(e){
+				var layer = e.target;
+				layer.setStyle({
+					fillOpacity: 1,
+					radius:8,
+					weight:2,
+				});
+			},
+			mouseout: function(e){
+				layer.setStyle({
+					fillOpacity: 0.85,
+					radius:6,
+					weight:1,
+				});
+			}
+		})
+	},
+}).addTo(map);
+
+const getStazMeteo = function(){
+    staz_meteo.clearLayers();
+	$.getJSON({
+		url:global.serverURL+"/api/stazioni/meteo",
+		data:{ token: global.token },
+		success: function(response){
+			// Popola il layer
+			staz_meteo.addData(response);
+		}
+	});
+};
 
 // Legenda scala
 let rasterLayer;
@@ -209,6 +256,7 @@ L.control.layers({
 	"Mappa": mappa_base
 },{
 	// Overlays
+	"Stazioni meteo": staz_meteo,
 	"Punti di campionamento": punti_campionamento,
 	"Confini comunali": comune
 },{ position: 'bottomleft' }).addTo(map);
@@ -250,7 +298,7 @@ let activateSidebarHome = function() {
 }
 
 export { resizeMap, activateSidebarHome, 
-	map, getComune, getPunti, punti_campionamento, getRaster, rasterLayer, 
+	map, getComune, getStazMeteo, staz_meteo, getPunti, punti_campionamento, getRaster, rasterLayer, 
 	polygonDrawer, selectionLayer
 };
 
