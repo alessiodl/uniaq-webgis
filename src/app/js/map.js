@@ -6,6 +6,7 @@ import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css';
 import 'georaster-layer-for-leaflet';
 import 'geoblaze';
 import 'leaflet-draw';
+import 'leaflet-multi-style';
 
 // ChromaJS
 import chroma from 'chroma-js';
@@ -14,7 +15,7 @@ import { draw_puntiChart } from './charts';
 import { draw_puntiTable, adjustTable } from './tables';
 
 // initalize leaflet map
-const map = L.map('map-container').setView([42, 14], 6);
+const map = L.map('map-container',{attributionControl: false}).setView([42, 14], 6);
 
 // Controllo per il disegno di una AOI rettangolare
 const polygonDrawer = new L.Draw.Polygon(map);
@@ -47,17 +48,26 @@ var satellite = L.layerGroup([
         pane: 'labels'
     })
 ]).addTo(map);
+
+var mappa_base = L.layerGroup([
+	L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+		subdomains: 'abcd'
+	}), 
+	L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',{
+		maxZoom: 18,
+        attribution: '&copy; OpenStreetMap, &copy; CartoDB',
+        pane: 'labels'
+    })
+]);
+
 // Comune
-const comune = L.geoJSON(null,{
-	style: function (feature) {
-	    return {
-	      color: "#dc3545",
-	      weight: 3,
-	      fill: false,
-	      opacity: 1,
-	      clickable: false
-	    };
-	}
+const comune = L.geoJSON.multiStyle(null,{
+	styles:[
+		{color: 'black', opacity: 0.15, weight: 10, fill: false},
+        {color: 'white', opacity: 0.8, weight: 8, fill: false},
+        {color: 'red', opacity: 1, weight: 4, fill: false}
+	]
 }).addTo(map);
 
 const getComune = function(istat){
@@ -66,11 +76,11 @@ const getComune = function(istat){
 		url:global.serverURL+"/api/comuni",
 		data:{ token: global.token, istatComune: istat },
 		success: function(response){
-            // console.log(response);
 			// Popola il layer
 			comune.addData(response);
 			// Va all'estensione del layer
-			map.fitBounds(comune.getBounds());
+			let right_padding = $("#sidebar").width()
+			map.fitBounds(comune.getBounds(), {paddingBottomRight: [right_padding, 10]});
 		}
 	});
 };
@@ -82,7 +92,7 @@ const punti_campionamento = L.geoJSON(null,{
 		return L.circleMarker(latlng,{
 			renderer: myRenderer,
 			radius: 8,
-			fillColor: "#CC263C",
+			fillColor: "#CC0000",
 			fillOpacity: 0.75,
 			color: "#FFF",
 			weight:2,
@@ -91,6 +101,7 @@ const punti_campionamento = L.geoJSON(null,{
 	},
 	onEachFeature: function (feature,layer){
 		var attributes = layer.feature.properties;
+		layer.bindTooltip(String("P"+layer.feature.properties.id),{permanent:true, direction:"top"}).openTooltip();
 		layer.bindPopup(
 			"<table class='table table-sm'>"+
 				"<thead>"+
@@ -191,9 +202,33 @@ let getRaster = function(){
 	});
 };
 
+// Layer Control
+L.control.layers({
+	// Basemaps
+	"Ortofoto": satellite,
+	"Mappa": mappa_base
+},{
+	// Overlays
+	"Punti di campionamento": punti_campionamento,
+	"Confini comunali": comune
+},{ position: 'bottomleft' }).addTo(map);
+
+map.on('baselayerchange', function(e){
+	
+	if (e.name == 'Mappa') {
+		punti_campionamento.setStyle({
+			color:'#4A235A'
+		});
+	} else if (e.name == 'Ortofoto'){
+		punti_campionamento.setStyle({
+			color: "#FFF"
+		})
+	}
+});
+
 // Sidebar
 var rightsidebar = L.control.sidebar({
-    autopan: false,       
+    autopan: true,       
     closeButton: false,    
     container: 'sidebar', 
     position: 'right'
@@ -206,9 +241,12 @@ let resizeMap = function(){
 let activateSidebarHome = function() {
 	rightsidebar.open('home-tab');
 	setTimeout(function(){
+		// Va all'estensione del layer
+		let right_padding = $("#sidebar").width()
+		map.fitBounds(comune.getBounds(), {paddingBottomRight: [right_padding, 10]});
+		// 
 		adjustTable('data');
-		
-	},750);
+	}, 750);
 }
 
 export { resizeMap, activateSidebarHome, 

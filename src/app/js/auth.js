@@ -3,12 +3,14 @@ import { jsPanel } from 'jspanel4/es6module/jspanel.js';
 import 'jspanel4/es6module/extensions/modal/jspanel.modal.js';
 import 'jspanel4/dist/jspanel.css'
 import { activateSidebarHome, getComune, getPunti } from './map';
+import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
 
 var global = {
-    // Python GeoAPI development host
-    // serverURL: "http://192.168.1.160:5000", // Local VM
+    // Python GeoAPI host
     serverURL: "https://alessiodl.pythonanywhere.com",
-	development: true
+    username:"",
+    development: true,
+    version: "Prototype"
 };
 
 function showLoginPanel() {
@@ -47,14 +49,17 @@ function showLoginPanel() {
                     success: function(response){
                         console.log(response.token);
                         global.token = response.token;
+                        global.username = $("#username").val();
                         getListComuni();
                         $("#login-msg")
                             .removeClass('alert-warning alert-danger').addClass('alert-success')
                             .html("<i class='fas fa-cog fa-spin'></i> Autenticazione riuscita! Caricamento dati...");
                         setTimeout(function(){
-                            console.log(global);
+                            // console.log(global);
                             document.querySelector('.leaflet-sidebar').classList.remove('collapsed');
                             activateSidebarHome();
+                            // showTitlePanel();
+                            $("#info-user").html(global.username)
                             panel.close();
                         },3000);
                     },
@@ -68,6 +73,23 @@ function showLoginPanel() {
         }
     });
 };
+
+const showTitlePanel = function(){
+    jsPanel.create({
+        id: 'app-title',
+        header: false,
+        resizeit: false,
+        theme: '#C0392B filled',
+        border: '2px solid rgba(0,0,0,.2)',
+        borderRadius: 3,
+        content: '<div style="padding:2px 10px 0 5px;">'+
+                    '<span style="font-size:20px;"><i class="far fa-compass"></i> DISIM WebGIS Dashboard</span><br/>'+
+                    '<span style="font-size:12px;margin-left:26px;">Utente: <strong>'+global.username+'</strong></span>'+
+                '</div>',
+        position: 'left-top 55 10',
+        contentSize: 'auto 61'
+    });
+}
 
 let getListRaster = function(cod_istat){
 	// Recupera dati dal server
@@ -91,11 +113,15 @@ let getListRaster = function(cod_istat){
 let getListComuni = function(){
 	$.getJSON({
 		url:global.serverURL+"/api/comuni", 
-		data:{ token: global.token },
+        data:{ 
+            token: global.token, 
+            istatComune: '069101,068035,068026,066060',
+        },
 		success: function(resp){
 			// Popola filtro
 			var options = "";
 			$.each(resp.features,function(i,val){
+                // console.log(val.properties.nome)
 				options += "<option data-icon='fas fa-city' value='"+val.properties.cod_istat+"'>"+val.properties.nome+"</option>"
             });
 			// Appende le opzioni

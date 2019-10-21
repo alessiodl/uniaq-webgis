@@ -4,6 +4,7 @@
     <ul role="tablist">
         <li><a href="#home-tab" role="tab" title="Dati Agro-ambientali"><i class="fas fa-bars active"></i></a></li>
         <li><a href="#georaster-tab" title="Dati raster" role="tab"><i class="fas fa-map"></i></a></li>
+        <li><a href="#appinfo-tab" title="Informazioni" role="tab"><i class="fas fa-info-circle"></i></a></li>
     </ul>
 </div>
 <!-- panel content -->
@@ -34,11 +35,22 @@
 
     <div class="leaflet-sidebar-pane" id="georaster-tab">
         <h1 class="leaflet-sidebar-header">
-            Dati raster
+            Dati Raster
             <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
         </h1>
         </br>
         <!-- Form Raster -->
         ${ require('./sidebar-raster-form.html') }
     </div>
+
+    <div class="leaflet-sidebar-pane" id="appinfo-tab">
+        <h1 class="leaflet-sidebar-header">
+            Informazioni
+            <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+        </h1>
+        </br>
+        <!-- Form Raster -->
+        ${ require('./sidebar-info-page.html') }
+    </div>
+
 </div>

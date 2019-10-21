@@ -26,7 +26,13 @@ const draw_puntiChart = function(){
 			}]
 		},
 		options: {
-			responsive:true
+			responsive:true,
+			/* onHover: function(evt) {
+				var item = myChart.getElementAtEvent(evt);
+				if (item.length) {
+					console.log(item, evt.type);
+				};
+			} */
 		}
 	});
 };
