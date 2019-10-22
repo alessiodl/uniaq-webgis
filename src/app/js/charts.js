@@ -20,9 +20,10 @@ const draw_puntiChart = function(){
 			labels: ["Punto 1","Punto 2","Punto 3","Punto 4","Punto 5","Punto 6","Punto 7","Punto 8"],
 			datasets:[{
 				label: 'Quota SLM',
-				backgroundColor: '#CC263C',
-				borderColor: '#ABB2B9',
-				data: dataSet
+				backgroundColor: '#ABB2B9',
+				borderColor: '#CC263C',
+				data: dataSet,
+				fill: false
 			}]
 		},
 		options: {
@@ -260,7 +261,10 @@ const draw_meteoChart = function(data){
 			}],
 		},
 		options: {
-			responsive:true
+			responsive:true,
+			legend: {
+				display: false
+			 },
 		}
 	});
 }

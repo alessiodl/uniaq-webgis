@@ -92,7 +92,7 @@ const punti_campionamento = L.geoJSON(null,{
 	pointToLayer: function (feature, latlng) {
 		return L.circleMarker(latlng,{
 			renderer: myRenderer,
-			radius: 8,
+			radius: 10,
 			fillColor: "#CC0000",
 			fillOpacity: 0.75,
 			color: "#FFF",
@@ -113,14 +113,14 @@ const punti_campionamento = L.geoJSON(null,{
 				var layer = e.target;
 				layer.setStyle({
 					fillOpacity: 1,
-					radius:10,
+					radius:12,
 					weight:3,
 				});
 			},
 			mouseout: function(e){
 				layer.setStyle({
 					fillOpacity: 0.75,
-					radius:8,
+					radius:10,
 					weight:2,
 				});
 			}
@@ -153,7 +153,7 @@ const staz_meteo = L.geoJSON(null,{
 	pointToLayer: function (feature, latlng) {
 		return L.circleMarker(latlng,{
 			renderer: myRenderer,
-			radius: 6,
+			radius: 8,
 			fillColor: "#0000CC",
 			fillOpacity: 0.85,
 			color: "#FFF",
@@ -172,14 +172,14 @@ const staz_meteo = L.geoJSON(null,{
 				var layer = e.target;
 				layer.setStyle({
 					fillOpacity: 1,
-					radius:8,
+					radius:10,
 					weight:2,
 				});
 			},
 			mouseout: function(e){
 				layer.setStyle({
 					fillOpacity: 0.85,
-					radius:6,
+					radius:8,
 					weight:1,
 				});
 			}
