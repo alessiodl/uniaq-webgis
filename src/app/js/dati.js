@@ -1,6 +1,6 @@
 import { global } from './auth';
 import { draw_bioFunzTable, draw_bioGenTable, draw_matTecTable, draw_microvinTable } from './tables';
-import { draw_bioFunzChart, draw_bioGenChart, draw_matTecChart, draw_microvinChart } from './charts';
+import { draw_bioFunzChart, draw_bioGenChart, draw_matTecChart, draw_microvinChart, draw_meteoChart } from './charts';
 
 let getMicrobiologici = function(){
     // Recupera dati dal server
@@ -54,7 +54,8 @@ let getMeteoData = function(){
 			idStazione: $("#stazione-filter").val()
 		},
 		success: function(response){
-			console.log(response);
+			// console.log(response);
+			draw_meteoChart(response);
 		}
 	})
 }

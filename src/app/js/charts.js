@@ -226,5 +226,44 @@ const draw_microvinChart = function(data){
 	});
 }
 
+let meteoChart;
+const draw_meteoChart = function(data){
+	console.log(data);
+	// Crea grafico
+	var ctx = document.getElementById('meteo-chart').getContext('2d');
+    if (meteoChart) { meteoChart.destroy(); }
+	// Variabile selezionata
+	var variabile = $("#meteo-data-filter").val();
+	// console.log(variabile);
 
-export { draw_puntiChart, draw_bioFunzChart, draw_bioGenChart, draw_matTecChart, draw_microvinChart };
+	var date_labels = [];
+	var meteo_data = [];
+
+	$.each(data,function(i,val){
+		
+		date_labels.push(val['data']);
+		meteo_data.push(val[variabile]);
+	});
+
+	console.log(date_labels)
+
+	meteoChart = new Chart(ctx, {
+		type: 'line',
+		data:{
+			labels: date_labels,
+			datasets:[{
+				label: $("#meteo-data-filter option:selected").text(),
+				backgroundColor: 'silver',
+				borderColor: '#2471A3',
+				fill: false,
+				data: meteo_data
+			}],
+		},
+		options: {
+			responsive:true
+		}
+	});
+}
+
+
+export { draw_puntiChart, draw_bioFunzChart, draw_bioGenChart, draw_matTecChart, draw_microvinChart, draw_meteoChart };

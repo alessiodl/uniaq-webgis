@@ -11,7 +11,8 @@ import 'leaflet-multi-style';
 // ChromaJS
 import chroma from 'chroma-js';
 import { global } from './auth';
-import { draw_puntiChart } from './charts';
+import { getMeteoData } from './dati';
+import { draw_puntiChart, draw_meteoChart } from './charts';
 import { draw_puntiTable, adjustTable } from './tables';
 
 // initalize leaflet map
@@ -296,6 +297,13 @@ let activateSidebarHome = function() {
 		adjustTable('data');
 	}, 750);
 }
+
+rightsidebar.on('content', function(e) {
+	// console.log(e.id);
+    if (e.id == 'meteo-tab'){
+		getMeteoData();
+	}
+})
 
 export { resizeMap, activateSidebarHome, 
 	map, getComune, getStazMeteo, staz_meteo, getPunti, punti_campionamento, getRaster, rasterLayer, 
