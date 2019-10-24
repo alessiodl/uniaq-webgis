@@ -125,7 +125,7 @@ let getListComuni = function(){
 				options += "<option data-icon='fas fa-city' value='"+val.properties.cod_istat+"'>"+val.properties.nome+"</option>"
             });
 			// Appende le opzioni
-			$("#comuni-filter").append(options);
+			$("#comuni-filter").empty().append(options);
 			// Seleziona Villamagna come predefinito
 			$("#comuni-filter").selectpicker('val', '069101');
 			// Sblocca il widget
