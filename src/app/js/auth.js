@@ -39,6 +39,7 @@ function showLoginPanel() {
         callback: function () {
             this.content.style.padding = '20px';
             document.querySelector("#login-btn").addEventListener("click", function(){
+                $("#login-msg").html("<i class='fas fa-cog fa-spin'></i> Autenticazione in corso...");
                 // Recupera Token dal Server
                 $.get({
                     url: global.serverURL+"/api/login",
