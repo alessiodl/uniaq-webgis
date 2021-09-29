@@ -27,7 +27,7 @@
     "bootstrap-select": "^1.13.10",
     "chart.js": "^2.8.0",
     "chroma-js": "^2.0.6",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.11.3",
     "datatables.net-bs4": "^1.10.19",
     "geoblaze": "^0.2.2",
     "georaster-layer-for-leaflet": "^0.2.5",
