@@ -36,6 +36,7 @@ map.createPane('labels');
 map.getPane('labels').style.zIndex = 650;
 map.getPane('labels').style.pointerEvents = 'none'
 // baselayer
+/*
 var satellite = L.layerGroup([
     L.tileLayer.wms('http://213.215.135.196/reflector/open/service?', {
 		maxZoom: 18,
@@ -49,7 +50,7 @@ var satellite = L.layerGroup([
         pane: 'labels'
     })
 ]).addTo(map);
-
+*/
 var mappa_base = L.layerGroup([
 	L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -253,7 +254,7 @@ let getRaster = function(){
 // Layer Control
 L.control.layers({
 	// Basemaps
-	"Ortofoto": satellite,
+	// "Ortofoto": satellite,
 	"Mappa": mappa_base
 },{
 	// Overlays
